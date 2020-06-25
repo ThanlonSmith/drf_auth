@@ -2,13 +2,14 @@ from rest_framework.views import APIView
 from .models import User, UserToken
 from django.http import JsonResponse
 from utils.md5 import md5
+from django.http import HttpResponse
+from app import permission
 
 
 class AuthView(APIView):
     authentication_classes = []
 
     def post(self, request, *args, **kwargs):
-        print(md5('thanlon'))
         ret = {'code': 1000, 'msg': None}
         try:
             # 需要以form-data的方式提交
@@ -31,11 +32,20 @@ class AuthView(APIView):
 
 
 class OrderView(APIView):
-    # 需要认证，使用自定义的Authenticate类来认证
+    # 需要认证，使用自定义的Authenticate类来认证，已经在全局中做了认证
     # authentication_classes = [FirstAuthenticate, Authenticate, ]
+    permission_classes = [permission.MyPermission2, ]
+
     def get(self, request, *args, **kwargs):
         # request.user
         # request.auth
+        print(request.user)  # User object (1)
+        print(request.auth)  # print(request.auth)#User object (1)
+        """
+        权限:
+        if request.user.user_type != 3:
+            return HttpResponse('无权访问')
+        """
         self.dispatch
         order_dict = {
             1: {

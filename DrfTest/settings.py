@@ -123,8 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ['app.auth.FirstAuthenticate', 'app.auth.Authenticate', ]
-    'DEFAULT_AUTHENTICATION_CLASSES': ['app.auth.FirstAuthenticate', ],  # FirstAuthenticate中什么也没有做
+    'DEFAULT_AUTHENTICATION_CLASSES': ['app.auth.FirstAuthenticate', 'app.auth.Authenticate', ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': ['app.auth.FirstAuthenticate', ],  # FirstAuthenticate中什么也没有做
     # 'UNAUTHENTICATED_USER': lambda x: '匿名用户',
     'UNAUTHENTICATED_USER': None,  # request.user = None，默认是AnonymousUser
     'UNAUTHENTICATED_TOKEN': None  # request.auth = None
