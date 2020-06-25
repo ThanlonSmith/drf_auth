@@ -34,7 +34,8 @@ class AuthView(APIView):
 class OrderView(APIView):
     # 需要认证，使用自定义的Authenticate类来认证，已经在全局中做了认证
     # authentication_classes = [FirstAuthenticate, Authenticate, ]
-    permission_classes = [permission.MyPermission2, ]
+    # 将权限类列表置为空，则不需要任何权限就可以访问
+    # permission_classes = []
 
     def get(self, request, *args, **kwargs):
         # request.user
