@@ -2,14 +2,16 @@ from rest_framework.views import APIView
 from .models import User, UserToken
 from django.http import JsonResponse
 from utils.md5 import md5
-from django.http import HttpResponse
-from app import permission
+from app.throttle import UserVisitThrottle, VisitThrottle
 
 
 class AuthView(APIView):
     authentication_classes = []
+    permission_classes = []
+    throttle_classes = [VisitThrottle, ]
 
     def post(self, request, *args, **kwargs):
+        self.dispatch
         ret = {'code': 1000, 'msg': None}
         try:
             # 需要以form-data的方式提交
@@ -40,8 +42,8 @@ class OrderView(APIView):
     def get(self, request, *args, **kwargs):
         # request.user
         # request.auth
-        print(request.user)  # User object (1)
-        print(request.auth)  # print(request.auth)#User object (1)
+        # print(request.user)  # User object (1)
+        # print(request.auth)  # print(request.auth)#User object (1)
         """
         权限:
         if request.user.user_type != 3:
